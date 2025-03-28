@@ -1,8 +1,12 @@
 import "./App.css";
-import FullPageTable from "./Table";
+import MyTable from "./MyTable";
 
 function App() {
-  return <FullPageTable />;
+  return (
+    <>
+      <MyTable />
+    </>
+  );
 }
 
 export default App;
