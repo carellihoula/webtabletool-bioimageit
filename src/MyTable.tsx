@@ -32,10 +32,10 @@ const MyTable: React.FC = () => {
                 <img
                   src={value.path}
                   alt={`Image ${colIndex}`}
-                  style={{ width: "100px", height: "auto" }}
+                  style={{ width: "100%", height: "100%" }}
                   onError={(e) => {
                     e.currentTarget.src =
-                      "http://localhost:8000/images/website.jpg";
+                      "http://localhost:8000/images/a.png";
                   }}
                 />
               </div>
