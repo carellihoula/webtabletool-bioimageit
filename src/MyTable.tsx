@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { MaterialReactTable, MRT_ColumnDef } from "material-react-table";
 import { useSocket } from "./context/SocketContext";
+import { Copy } from "lucide-react";
 
 interface ImageData {
   path: string;
@@ -9,6 +10,11 @@ interface ImageData {
 
 const MyTable: React.FC = () => {
   const { messages, connectionStatus } = useSocket();
+  // const [isClicked, setIsClicked] = useState(false);
+  // const handleCopy = (value: string) => {
+  //   navigator.clipboard.writeText(value);
+  //   setIsClicked(true);
+  // };
 
   const maxRows = messages.reduce((max, col) => {
     if (Array.isArray(col)) {
@@ -35,13 +41,21 @@ const MyTable: React.FC = () => {
                   style={{ width: "100%", height: "100%" }}
                   onError={(e) => {
                     e.currentTarget.src =
-                      "http://localhost:8000/images/a.png";
+                      "http://localhost:8000/images/Thumbnails/List%20Files/ai-generated-9134381_640_0-0.png";
                   }}
                 />
               </div>
-              <p className="text-center bg-amber-900 rounded-b-lg text-white w-fill">
+              {/* <p className="text-center bg-amber-900 rounded-b-lg text-white w-fill">
                 {value.path}
-              </p>
+              </p> */}
+              <div className="flex items-center gap-1">
+                <Copy
+                  size={16}
+                  onClick={() => navigator.clipboard.writeText(value.path)}
+                  className="cursor-pointer"
+                />
+                <span>Copy</span>
+              </div>
             </div>
           );
         },
