@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",              // Required for "paths" to work
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]           // The alias the shadcn CLI is looking for
+      "@/*": ["src/*"]
     }
   },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" },
-    
+    { "path": "./tsconfig.node.json" }
   ]
 }
