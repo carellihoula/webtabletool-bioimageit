@@ -76,7 +76,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
           if (jsonData.topic === "table_data") {
             // to be modified later
             setMessages((prev) => [...prev, jsonData.message]);
-            console.log("type :", jsonData.message);
+            console.log("data :", jsonData.message);
           } else {
             // to be modified later
             setMessages((prev) => [...prev, rawMessage]);

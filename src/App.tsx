@@ -1,10 +1,12 @@
 import "./App.css";
+import { useSocket } from "./context/SocketContext";
 import MyTable from "./MyTable";
 
 function App() {
+  const { messages } = useSocket();
   return (
     <>
-      <MyTable />
+      <MyTable messages={messages} />
     </>
   );
 }
