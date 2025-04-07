@@ -19,6 +19,7 @@ export interface MyTableProps {
 export interface ThumbnailCellProps {
   src: string;
   alt: string;
+  row?: { [key: string]: number | string | null };
 }
 
 export interface DataTableProps {

@@ -38,11 +38,23 @@ export const DataTable: React.FC<DataTableProps> = ({ selectedNode }) => {
     if (isImageNode) {
       return selectedNode.results.map((res) => {
         const input = res.path_thumbnail || null;
+        const absoluteInput = res.path || null; // absolute path for the input image
+
+        // For the output image, find the key ending with "_thumbnail" (but not "path_thumbnail")
         const outputKey = Object.keys(res).find(
           (key) => key.endsWith("_thumbnail") && key !== "path_thumbnail"
         );
         const output = outputKey ? res[outputKey] : null;
-        return { input, output };
+
+        // Assume that the absolute output path is in the same key as the output thumbnail but without the "_thumbnail" suffix.
+        const absoluteOutputKey = outputKey
+          ? outputKey.replace(/_thumbnail$/, "")
+          : null;
+        const absoluteOutput = absoluteOutputKey
+          ? res[absoluteOutputKey]
+          : null;
+
+        return { input, absoluteInput, output, absoluteOutput };
       });
     }
 
@@ -79,10 +91,11 @@ export const DataTable: React.FC<DataTableProps> = ({ selectedNode }) => {
         {
           accessorKey: "input",
           header: "Liste files",
-          Cell: ({ cell }) => (
+          Cell: ({ cell, row }) => (
             <ThumbnailCell
               src={cell.getValue() as string}
               alt="Input Thumbnail"
+              row={row.original}
             />
           ),
         },
@@ -93,10 +106,11 @@ export const DataTable: React.FC<DataTableProps> = ({ selectedNode }) => {
         cols.push({
           accessorKey: "output",
           header: selectedNode.node,
-          Cell: ({ cell }) => (
+          Cell: ({ cell, row }) => (
             <ThumbnailCell
               src={cell.getValue() as string}
               alt="Output Thumbnail"
+              row={row.original}
             />
           ),
         });
