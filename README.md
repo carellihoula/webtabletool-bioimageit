@@ -1,54 +1,54 @@
-# React + TypeScript + Vite
+# WebTableTool Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is the **ReactJS-based frontend** for the `WebTableTool` component. It provides a dynamic web interface for displaying the input and output data of a workflow built using a canvas-based UI. The data is transmitted in real time via **WebSockets** from the Python backend (Qt + FastAPI).
 
-Currently, two official plugins are available:
+The interface is embedded into a Qt desktop application using **QWebEngineView**, offering a more interactive and flexible alternative to traditional `QTableView`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Real-time communication via WebSocket
+- Dynamic display of workflow input/output data
+- Integration into a Qt application through `QWebEngineView`
+- Ready for use with Material React Table
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- [ReactJS](https://reactjs.org/)
+- [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+- [Material React Table](https://www.material-react-table.com/)
+
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://gitlab.inria.fr/cntsoumo/webtabletool-ts.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+```bash
+cd webtabletool-ts
+```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 2. Install dependencies
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+Make sure you have **Node.js** and **npm** installed, then run:
+
+```bash
+npm install
+```
+
+### 3. Start the development server
+
+```bash
+npm run dev
+```
+
+The app will be available at [http://localhost:5173](http://localhost:5173)
+
+## Build for production
+
+To build the project for production:
+
+```bash
+npm run build
 ```
