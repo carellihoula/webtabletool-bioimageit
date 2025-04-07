@@ -6,11 +6,11 @@ import React, {
   ReactNode,
   useRef,
 } from "react";
+import { NodeData } from "../types";
 
-// type any[] to be modified later
 interface SocketContextProps {
   sendMessage: (msg: string) => void;
-  messages: any[];
+  messages: NodeData[];
   connectionStatus: "connected" | "disconnected" | "reconnecting";
 }
 
@@ -32,7 +32,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
   url,
 }) => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<NodeData[]>([]);
   const [connectionStatus, setConnectionStatus] = useState<
     "connected" | "disconnected" | "reconnecting"
   >("disconnected");
