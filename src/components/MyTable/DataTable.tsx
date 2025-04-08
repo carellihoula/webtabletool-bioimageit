@@ -1,10 +1,13 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { DataTableProps } from "../../types";
 import { MaterialReactTable, MRT_ColumnDef } from "material-react-table";
 import { ThumbnailCell } from "./ThumbnailCell";
+// import { useSocket } from "../../context/SocketContext";
 
 // Dynamically builds and renders the table based on the node's content type.
 export const DataTable: React.FC<DataTableProps> = ({ selectedNode }) => {
+  // const { sendMessage } = useSocket();
+  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
   const hasData = selectedNode.results.length > 0;
 
   // Check if the node is of type "List files"
@@ -133,5 +136,13 @@ export const DataTable: React.FC<DataTableProps> = ({ selectedNode }) => {
     }));
   }, [selectedNode, isListFiles, isImageNode, tableData, hasData]);
 
-  return <MaterialReactTable columns={columns} data={tableData} />;
+  return (
+    <MaterialReactTable
+      columns={columns}
+      data={tableData}
+      enableRowSelection
+      state={{ rowSelection }}
+      onRowSelectionChange={setRowSelection}
+    />
+  );
 };
