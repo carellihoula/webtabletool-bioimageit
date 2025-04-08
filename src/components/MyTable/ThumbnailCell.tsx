@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ThumbnailCellProps } from "../../types";
 import { Check, Copy } from "lucide-react";
+import { useSocket } from "../../context/SocketContext";
 
 // Component to display an image with a fallback on error
 export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
@@ -12,15 +13,20 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
   const [copied, setCopied] = useState(false);
   const [editing, setEditing] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { sendMessage } = useSocket();
 
   // Extract file name from path
   const getFileName = (path: string) => {
     return path.split("/").pop() || path;
   };
 
+  const absolutePath = alt.includes("Input")
+    ? row?.absoluteInput || ""
+    : row?.absoluteOutput || "";
+
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(String(row?.absoluteOutput ?? ""));
+      await navigator.clipboard.writeText(String(absolutePath));
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch (err) {
@@ -32,10 +38,28 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
   useEffect(() => {
     if (editing && inputRef.current) {
       inputRef.current.focus();
-      //inputRef.current.select();
-      inputRef.current.setSelectionRange(0, 0);
+      inputRef.current.select();
     }
   }, [editing]);
+
+  const handleOpenInNapari = () => {
+    if (!absolutePath) {
+      console.warn("No absolute path available to open in Napari");
+      return;
+    }
+
+    const message = {
+      topic: "open_napari",
+      action: "publish",
+      message: {
+        paths: [absolutePath],
+      },
+    };
+
+    console.log("Sending message:", message);
+
+    sendMessage(JSON.stringify(message));
+  };
 
   if (!src) return null;
 
@@ -44,6 +68,7 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
       <img
         src={src}
         alt={alt}
+        onClick={handleOpenInNapari}
         style={{ width: "100px", height: "100px" }}
         onError={(e) => {
           // Fallback image URL
@@ -56,7 +81,7 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
           <input
             ref={inputRef}
             type="text"
-            defaultValue={row?.absoluteOutput ?? ""}
+            defaultValue={absolutePath}
             onBlur={() => setEditing(false)}
             className="border-1 border-gray-300  p-3 !w-[100%] h-6"
             onKeyDown={(e) => {
