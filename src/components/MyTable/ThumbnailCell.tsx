@@ -9,7 +9,7 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
   alt,
   row,
 }) => {
-  console.log("ThumbnailCell props h:", row);
+  //console.log("ThumbnailCell props h:", row);
   const [copied, setCopied] = useState(false);
   const [editing, setEditing] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -56,7 +56,7 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
       },
     };
 
-    console.log("Sending message:", message);
+    //console.log("Sending message:", message);
 
     sendMessage(JSON.stringify(message));
   };
