@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ThumbnailCellProps } from "../../types";
 import { Check, Copy } from "lucide-react";
-import { Input } from "../ui/input";
 
 // Component to display an image with a fallback on error
 export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
@@ -33,7 +32,8 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
   useEffect(() => {
     if (editing && inputRef.current) {
       inputRef.current.focus();
-      inputRef.current.select();
+      //inputRef.current.select();
+      inputRef.current.setSelectionRange(0, 0);
     }
   }, [editing]);
 
@@ -51,14 +51,17 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
             "http://localhost:8000/images/testA/Thumbnails/Binary threshold/neurons-7420670_640_thresholded_7-1.png";
         }}
       />
-      <div className="flex items-center justify-center gap-2 text-xs mt-1">
+      <div className="flex items-center justify-center gap-2 text-xs mt-1 w-[80%]">
         {editing ? (
-          <Input
+          <input
             ref={inputRef}
             type="text"
             defaultValue={row?.absoluteOutput ?? ""}
             onBlur={() => setEditing(false)}
-            className="bg-[#8d8d8d]"
+            className="border-1 border-gray-300  p-3 !w-[100%] h-6"
+            onKeyDown={(e) => {
+              e.stopPropagation();
+            }}
           />
         ) : (
           <span
