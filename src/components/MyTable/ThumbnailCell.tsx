@@ -70,6 +70,7 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
         alt={alt}
         onClick={handleOpenInNapari}
         style={{ width: "100px", height: "100px" }}
+        className="cursor-pointer"
         onError={(e) => {
           // Fallback image URL
           e.currentTarget.src =
