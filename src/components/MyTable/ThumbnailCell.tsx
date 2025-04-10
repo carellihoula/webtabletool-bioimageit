@@ -45,7 +45,7 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
 
   const handleOpenInNapari = (event: React.MouseEvent<HTMLImageElement>) => {
     if (!absolutePath) {
-      console.warn("No absolute path available to open in Napari");
+      // console.warn("No absolute path available to open in Napari");
       return;
     }
 
@@ -60,7 +60,7 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
       },
     };
 
-    console.log("Sending message:", message);
+    // console.log("Sending message:", message);
 
     sendMessage(JSON.stringify(message));
   };
@@ -76,7 +76,7 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
         style={{ width: "100px", height: "100px" }}
         className="cursor-pointer"
         onError={(e) => {
-          // Fallback image URL
+          // Fallback image URL ==> default image
           e.currentTarget.src =
             "http://localhost:8000/images/testA/Thumbnails/Binary threshold/neurons-7420670_640_thresholded_7-1.png";
         }}

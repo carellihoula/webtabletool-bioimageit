@@ -76,13 +76,13 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
 
       ws.onmessage = (event: MessageEvent) => {
         const rawMessage = event.data.toString();
-        console.log("Raw message received:", rawMessage);
+        // console.log("Raw message received:", rawMessage);
         try {
           const jsonData = JSON.parse(rawMessage);
           if (jsonData.topic === "table_data") {
             // to be modified later
             setMessages((prev) => [...prev, jsonData.message]);
-            console.log("data :", jsonData.message);
+            // console.log("data :", jsonData.message);
           } else {
             // to be modified later
             setMessages((prev) => [...prev, rawMessage]);
