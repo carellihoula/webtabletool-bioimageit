@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ThumbnailCellProps } from "../../types";
 import { Check, Copy } from "lucide-react";
 import { useSocket } from "../../context/SocketContext";
+import { toast } from "react-toastify";
 
 // Component to display an image with a fallback on error
 export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
@@ -42,7 +43,7 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
       inputRef.current.select();
     }
   }, [editing]);
-
+  const notify = () => toast("Image is open in Napari");
   const handleOpenInNapari = (event: React.MouseEvent<HTMLImageElement>) => {
     if (!absolutePath) {
       // console.warn("No absolute path available to open in Napari");
@@ -63,6 +64,7 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
     // console.log("Sending message:", message);
 
     sendMessage(JSON.stringify(message));
+    notify();
   };
 
   if (!src) return null;
