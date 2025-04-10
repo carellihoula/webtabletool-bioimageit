@@ -13,6 +13,7 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
   const [copied, setCopied] = useState(false);
   const [editing, setEditing] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
   const { sendMessage } = useSocket();
 
   // Extract file name from path
@@ -42,21 +43,24 @@ export const ThumbnailCell: React.FC<ThumbnailCellProps> = ({
     }
   }, [editing]);
 
-  const handleOpenInNapari = () => {
+  const handleOpenInNapari = (event: React.MouseEvent<HTMLImageElement>) => {
     if (!absolutePath) {
       console.warn("No absolute path available to open in Napari");
       return;
     }
 
+    const removeExistingImages = !(event.ctrlKey || event.shiftKey);
+
     const message = {
       topic: "open_napari",
       action: "publish",
       message: {
-        paths: [absolutePath],
+        path: absolutePath,
+        removeExistingImages,
       },
     };
 
-    //console.log("Sending message:", message);
+    console.log("Sending message:", message);
 
     sendMessage(JSON.stringify(message));
   };
