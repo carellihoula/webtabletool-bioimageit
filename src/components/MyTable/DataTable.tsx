@@ -141,9 +141,27 @@ export const DataTable: React.FC<DataTableProps> = ({ selectedNode }) => {
     <MaterialReactTable
       columns={columns}
       data={tableData}
+      enablePagination={false}
+      enableRowVirtualization
+      // muiTableContainerProps={{
+      //   sx: {
+      //     maxHeight: "100%",
+      //     // Example: 'calc(100vh - 200px)' to adapt to window height minus headers/footers
+      //   },
+      // }}
+      // paginationDisplayMode="pages" // Or 'default'
+      // initialState={{
+      //   density: "comfortable", // Less vertical space per row
+      //   pagination: { pageSize: , pageIndex: 0 }, // Display more rows per page
+      //   // showGlobalFilter: true, // If you want a global filter
+      // }}
+      // muiPaginationProps={{
+      //   rowsPerPageOptions: [5, 25, 50, 100, 200],
+      // }}
       // enableRowSelection
       // state={{ rowSelection }}
       // onRowSelectionChange={setRowSelection}
+      // state={{ isLoading: !columns || columns.length === 0 }}
     />
   );
 };

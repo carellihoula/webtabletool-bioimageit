@@ -20,6 +20,8 @@ const MyTable: React.FC<MyTableProps> = ({ messages }) => {
       <MaterialReactTable
         columns={[]}
         data={[]}
+        enablePagination={false}
+        enableRowVirtualization
         renderEmptyRowsFallback={() => (
           <div style={{ padding: "1rem", textAlign: "center" }}>
             No data from workflow

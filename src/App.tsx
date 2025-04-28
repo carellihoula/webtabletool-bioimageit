@@ -5,7 +5,7 @@ import { Slide, ToastContainer } from "react-toastify";
 
 function App() {
   const { messages } = useSocket();
-  //console.log("messages: ", messages);
+
   return (
     <>
       <MyTable messages={messages} />
